@@ -163,7 +163,6 @@ describe('rollup.watch', () => {
 							format: 'cjs'
 						},
 						watch: { chokidar },
-						experimentalCodeSplitting: true
 					});
 
 					return sequence(watcher, [
@@ -203,7 +202,6 @@ describe('rollup.watch', () => {
 							format: 'cjs'
 						},
 						watch: { chokidar },
-						experimentalCodeSplitting: true
 					});
 
 					return sequence(watcher, [
@@ -537,7 +535,6 @@ describe('rollup.watch', () => {
 							file: 'test/_tmp/output/bundle.js',
 							format: 'cjs'
 						},
-						experimentalCodeSplitting: true,
 						plugins: [
 							{
 								buildStart() {
