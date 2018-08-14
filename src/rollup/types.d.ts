@@ -138,6 +138,17 @@ export type TransformChunkHook = (
 	| void
 	| null;
 
+export type RenderChunkHook = (
+	this: PluginContext,
+	code: string,
+	chunk: RenderedChunk,
+	options: OutputOptions
+) =>
+	| Promise<{ code: string; map: RawSourceMap } | void>
+	| { code: string; map: RawSourceMap }
+	| void
+	| null;
+
 export type ResolveDynamicImportHook = (
 	this: PluginContext,
 	specifier: string | ESTree.Node,
@@ -168,6 +179,7 @@ export interface Plugin {
 	// TODO: deprecate
 	transformBundle?: TransformChunkHook;
 	transformChunk?: TransformChunkHook;
+	renderChunk?: RenderChunkHook;
 	buildStart?: (this: PluginContext, options: InputOptions) => Promise<void> | void;
 	buildEnd?: (this: PluginContext, err?: any) => Promise<void> | void;
 	// TODO: deprecate
@@ -344,7 +356,7 @@ export interface RenderedModule {
 	originalLength: number;
 }
 
-export interface RenderChunk {
+export interface RenderedChunk {
 	fileName: string;
 	isEntry: boolean;
 	imports: string[];
@@ -354,7 +366,7 @@ export interface RenderChunk {
 	};
 }
 
-export interface OutputChunk extends RenderChunk {
+export interface OutputChunk extends RenderedChunk {
 	code: string;
 	map?: SourceMap;
 }
